@@ -31,11 +31,17 @@
       >
       </textarea>
 
-      <input type="submit" value="Add" />
+      <button onclick="addjournalPrompt(event)">Add</button>
+      <ul id="promptlist"></ul>
     </form>
 
     <form id="journalentryform" style="display: none">
-      <label for="fname">Add a new journal entry</label><br />
+      <select
+        class="mb-4"
+        name="selectjournalprompt"
+        id="selectjournalprompt"
+      ></select>
+      <br />
       <textarea
         class="form-control w-50"
         id="journalentryinput"
