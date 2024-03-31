@@ -14,12 +14,32 @@
   </head>
   <body>
     <section class="mb-4" id="choices">
-      <button class="btn btn-primary mx-4" onclick="showPromptForm()">
-        Add Journal Prompt</button
-      ><button class="btn btn-primary" onclick="showEntryForm()">
-        Add Journal Entry
-      </button>
+      <div class="d-flex mb-4">
+        <button class="btn btn-primary mx-4" onclick="showSetupForm()">
+          Setup
+        </button>
+        <div id="journalbuttons"></div>
+      </div>
+      <div id="newjournal_entryprompt" style="display: none">
+        <button class="btn btn-primary mx-4" onclick="showPromptForm()">
+          Add Journal Prompt</button
+        ><button class="btn btn-primary" onclick="showEntryForm()">
+          Add Journal Entry
+        </button>
+      </div>
     </section>
+    <form id="newjournalform">
+      <label for="fname">Add a new journal</label><br />
+      <input
+        class="form-control w-50"
+        id="journalinput"
+        placeholder="new journal name"
+      />
+
+      <button onclick="addNewJournal(event)">Add</button>
+      <ul id="journallist"></ul>
+    </form>
+
     <form id="journalpromptform" style="display: none">
       <label for="fname">Add a new journal prompt</label><br />
       <textarea
