@@ -10,6 +10,7 @@ let currentjournal = "";
 const newjournalform = document.getElementById("newjournalform");
 const journalpromptform = document.getElementById("journalpromptform");
 const journalentryform = document.getElementById("journalentryform");
+const secondcolumn = document.getElementById("secondcolumn");
 
 function selectJournal(journal) {
   currentjournal = journal;
@@ -20,20 +21,40 @@ function selectJournal(journal) {
   );
   newjournal_entryprompt.style.display = "block";
   renderPromptList();
+  secondcolumn.style.display = "block";
+  renderEntryList();
+}
+
+function saveEntryList() {
+  localStorage.setItem("entryArray", JSON.stringify(entryArray));
+}
+function renderEntryList() {
+  const entrylist = document.getElementById("entrylist");
+  entrylist.innerHTML = "";
+  entryArray
+    .filter((item) => item.journal === currentjournal)
+    .forEach((arrayitem) => {
+      entrylist.innerHTML += `<tr><td>${arrayitem.date}</td>
+      <td>${arrayitem.prompt}</td>
+      <td>${arrayitem.entry}</td>
+      </tr>`;
+    });
 }
 
 function selectRandomPrompt() {
   const randomindex = Math.floor(Math.random() * promptArray.length);
-  currentPrompt = promptArray[randomindex];
+  currentPrompt = promptArray[randomindex].prompt;
 }
 
 function displayPromptDropDown() {
   const selectjournalprompt = document.getElementById("selectjournalprompt");
   selectjournalprompt.value = currentPrompt;
   selectjournalprompt.innerHTML = "";
-  promptArray.forEach((prompt) => {
-    selectjournalprompt.innerHTML += `<option value="${prompt}">${prompt}</option>`;
-  });
+  promptArray
+    .filter((item) => item.journal === currentjournal)
+    .forEach((prompt) => {
+      selectjournalprompt.innerHTML += `<option value="${prompt.prompt}">${prompt.prompt}</option>`;
+    });
 }
 
 function showSetupForm() {
@@ -85,13 +106,19 @@ function addjournalPrompt(e) {
 
 function addJournalEntry(e) {
   e.preventDefault();
-  const taskinput = document.getElementById("taskinput");
-  const text = taskinput.value;
+  const journalentryinput = document.getElementById("journalentryinput");
+  const text = journalentryinput.value;
   console.log(text);
-  taskinput.value = "";
-  taskarray.push({ id: new Date().valueOf(), task: text, is_completed: false });
-  saveTaskList();
-  renderTaskList();
+  journalentryinput.value = "";
+  entryArray.push({
+    id: new Date().valueOf(),
+    entry: text,
+    journal: currentjournal,
+    prompt: currentPrompt,
+    date: new Date(),
+  });
+  saveEntryList();
+  renderEntryList();
 }
 function renderJournalList() {
   const journallist = document.getElementById("journallist");
@@ -125,6 +152,11 @@ const displayPromptArray = localStorage.getItem("promptArray");
 if (displayPromptArray !== null) {
   promptArray = JSON.parse(displayPromptArray);
   renderPromptList();
+}
+const displayEntryArray = localStorage.getItem("entryArray");
+if (displayEntryArray !== null) {
+  entryArray = JSON.parse(displayEntryArray);
+  renderEntryList();
 }
 const displayJournalArray = localStorage.getItem("journalArray");
 if (displayJournalArray !== null) {

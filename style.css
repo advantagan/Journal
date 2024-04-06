@@ -1,0 +1,9 @@
+#columns {
+  display: flex;
+}
+#firstcolumn {
+  width: 40%;
+}
+#secondcolumn {
+  width: 60%;
+}
