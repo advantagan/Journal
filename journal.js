@@ -37,6 +37,7 @@ function renderEntryList() {
       entrylist.innerHTML += `<tr><td>${arrayitem.date}</td>
       <td>${arrayitem.prompt}</td>
       <td>${arrayitem.entry}</td>
+      <td><span class="mdi mdi-delete-circle" onclick="deleteJournalEntry('${arrayitem.id}')"></span></td>
       </tr>`;
     });
 }
@@ -104,6 +105,13 @@ function addjournalPrompt(e) {
   renderPromptList();
 }
 
+function deletejournalPrompt(prompt) {
+  const index = promptArray.findIndex((item) => item.prompt === prompt);
+  promptArray.splice(index, 1);
+  localStorage.setItem("promptArray", JSON.stringify(promptArray));
+  renderPromptList();
+}
+
 function addJournalEntry(e) {
   e.preventDefault();
   const journalentryinput = document.getElementById("journalentryinput");
@@ -120,6 +128,13 @@ function addJournalEntry(e) {
   saveEntryList();
   renderEntryList();
 }
+function deleteJournalEntry(entryId) {
+  const index = entryArray.findIndex((item) => item.id === entryId);
+  entryArray.splice(index, 1);
+  localStorage.setItem("entryArray", JSON.stringify(entryArray));
+  renderEntryList();
+}
+
 function renderJournalList() {
   const journallist = document.getElementById("journallist");
   journallist.innerHTML = "";
@@ -134,7 +149,10 @@ function renderPromptList() {
   promptArray
     .filter((item) => item.journal === currentjournal)
     .forEach((arrayitem) => {
-      journalPromptlist.innerHTML += `<li>${arrayitem.prompt}</li>`;
+      journalPromptlist.innerHTML += `<li>
+      <span>${arrayitem.prompt}</span>
+              <span class="mdi mdi-delete-circle" onclick="deletejournalPrompt('${arrayitem.prompt}')"></span>
+      </li>`;
     });
 }
 

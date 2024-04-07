@@ -11,6 +11,11 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css"
+    />
+
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -49,13 +54,12 @@
         <form id="journalpromptform" style="display: none">
           <label for="fname">Add a new journal prompt</label><br />
           <textarea
-            class="form-control w-50"
+            class="form-control w-75"
             id="journalpromptinput"
             rows="1"
             cols="50"
             placeholder="Add a new journal prompt"
-          >
-          </textarea>
+          ></textarea>
 
           <button onclick="addjournalPrompt(event)">Add</button>
           <ul id="promptlist"></ul>
@@ -71,11 +75,9 @@
           <textarea
             class="form-control w-50"
             id="journalentryinput"
-            rows="5"
             cols="20"
             placeholder="Add a new journal entry"
-          >
-          </textarea>
+          ></textarea>
 
           <button onclick="addJournalEntry(event)">Add</button>
         </form>
@@ -87,6 +89,7 @@
               <th scope="col">Date</th>
               <th scope="col">Question</th>
               <th scope="col">Entry</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody id="entrylist"></tbody>
