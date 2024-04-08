@@ -20,7 +20,9 @@ function selectJournal(journal) {
     "newjournal_entryprompt"
   );
   newjournal_entryprompt.style.display = "block";
+  selectRandomPrompt();
   renderPromptList();
+  displayPromptDropDown();
   secondcolumn.style.display = "block";
   renderEntryList();
 }
@@ -43,8 +45,16 @@ function renderEntryList() {
 }
 
 function selectRandomPrompt() {
-  const randomindex = Math.floor(Math.random() * promptArray.length);
-  currentPrompt = promptArray[randomindex].prompt;
+  const currentJournalPrompts = promptArray.filter(
+    (item) => item.journal === currentjournal
+  );
+  if (currentJournalPrompts.length > 0) {
+    const randomindex = Math.floor(
+      Math.random() * currentJournalPrompts.length
+    );
+    currentPrompt = currentJournalPrompts[randomindex].prompt;
+    console.log(randomindex, currentJournalPrompts);
+  }
 }
 
 function displayPromptDropDown() {
@@ -118,6 +128,7 @@ function addJournalEntry(e) {
   const text = journalentryinput.value;
   console.log(text);
   journalentryinput.value = "";
+  console.log(currentPrompt);
   entryArray.push({
     id: new Date().valueOf(),
     entry: text,
