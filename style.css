@@ -7,3 +7,6 @@
 #secondcolumn {
   width: 60%;
 }
+ul {
+  list-style: none !important;
+}

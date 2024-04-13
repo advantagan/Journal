@@ -150,7 +150,7 @@ function renderJournalList() {
   const journallist = document.getElementById("journallist");
   journallist.innerHTML = "";
   journalArray.forEach((journal) => {
-    journallist.innerHTML += `<li>${journal}</li>`;
+    journallist.innerHTML += `<li class="list-group-item">${journal}</li>`;
   });
 }
 
@@ -160,7 +160,7 @@ function renderPromptList() {
   promptArray
     .filter((item) => item.journal === currentjournal)
     .forEach((arrayitem) => {
-      journalPromptlist.innerHTML += `<li>
+      journalPromptlist.innerHTML += `<li class="list-group-item">
       <span>${arrayitem.prompt}</span>
               <span class="mdi mdi-delete-circle" onclick="deletejournalPrompt('${arrayitem.prompt}')"></span>
       </li>`;
